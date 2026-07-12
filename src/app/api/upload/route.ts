@@ -3,6 +3,10 @@ import fs from "fs/promises";
 import path from "path";
 
 export async function POST(req: NextRequest) {
+  if (process.env.NODE_ENV !== "development") {
+    return NextResponse.json({ error: "Upload is only allowed in local development mode" }, { status: 403 });
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File;

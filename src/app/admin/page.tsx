@@ -8,8 +8,13 @@ import { Input } from "@/components/ui/input";
 import { ClipPathEditor } from "@/components/creator/ClipPathEditor";
 import { Loader2, Plus, Trash2, Scissors, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default function AdminPage() {
+  if (process.env.NODE_ENV !== "development") {
+    notFound();
+  }
+
   const { 
     wrappers, 
     addWrapper, 
