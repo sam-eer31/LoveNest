@@ -98,7 +98,8 @@ const defaultWrappers = [
   { id: "kraft", label: "Rustic Kraft", url: "/bouquets/wrapper_kraft.svg", ext: "svg" },
   { id: "main", label: "Sweet Satin", url: "/bouquets/wrapper_main.png", ext: "png" },
   { id: "paper", label: "Vintage Paper", url: "/bouquets/wrapper_paper.png", ext: "png" },
-  { id: "2", label: "Blushing Ribbon", url: "/bouquets/wrapper_2.png", ext: "png" }
+  { id: "2", label: "Blushing Ribbon", url: "/bouquets/wrapper_2.png", ext: "png" },
+  { id: "korean_wrap", label: "Korean Wrap", url: "/bouquets/korean_wrap.png", ext: "png" }
 ];
 
 const defaultFlowers = [
@@ -123,7 +124,12 @@ const initialState = {
   photos: [],
   flowers: [],
   bouquetWrapper: 'classic',
-  customWrapperConfigs: {},
+  customWrapperConfigs: {
+    korean_wrap: {
+      visibleMaskUrl: "/bouquets/visible_korean_wrap.png",
+      shadingMaskUrl: "/bouquets/shading_korean_wrap.png"
+    }
+  },
   wrappers: defaultWrappers,
   flowersList: defaultFlowers,
   giftLink: '',
