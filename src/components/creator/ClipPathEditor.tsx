@@ -12,6 +12,7 @@ const WRAPPER_EXT: Record<string, string> = {
   main: "png",
   paper: "png",
   "2": "png",
+  korean_wrap: "png",
 };
 
 export function ClipPathEditor({ 

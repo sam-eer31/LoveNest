@@ -11,6 +11,7 @@ const WRAPPER_EXT: Record<string, string> = {
   main: "png",
   paper: "png",
   "2": "png",
+  korean_wrap: "png",
 };
 
 const WRAPPER_CONFIGS: Record<string, { bottomOffset: number, wrapperScale: number, translateY: number, frontClipPath: string }> = {
@@ -49,6 +50,12 @@ const WRAPPER_CONFIGS: Record<string, { bottomOffset: number, wrapperScale: numb
     wrapperScale: 1.15,
     translateY: 0,
     frontClipPath: "polygon(0% 100%, 100% 100%, 100% 25%, 95% 28%, 90% 32%, 85% 36%, 80% 40%, 75% 44%, 70% 47%, 65% 50%, 60% 52%, 55% 53%, 50% 54%, 45% 53%, 40% 52%, 35% 50%, 30% 47%, 25% 44%, 20% 40%, 15% 36%, 10% 32%, 5% 28%, 0% 25%)"
+  },
+  korean_wrap: {
+    bottomOffset: 160,
+    wrapperScale: 1.15,
+    translateY: 0,
+    frontClipPath: "polygon(0% 100%, 100% 100%, 100% 25%, 95% 28%, 90% 32%, 85% 36%, 80% 40%, 75% 44%, 70% 47%, 65% 50%, 60% 52%, 55% 53%, 50% 54%, 45% 53%, 40% 52%, 35% 50%, 30% 47%, 25% 44%, 20% 40%, 15% 36%, 10% 32%, 5% 28%, 0% 25%)"
   }
 };
 
@@ -59,15 +66,14 @@ const DEFAULT_POLYGONS: Record<string, string> = {
   main: "polygon(15% 25%, 85% 25%, 50% 85%)",
   paper: "polygon(15% 25%, 85% 25%, 50% 85%)",
   "2": "polygon(15% 25%, 85% 25%, 50% 85%)",
+  korean_wrap: "polygon(15% 25%, 85% 25%, 50% 85%)",
 };
 
 const DEFAULT_WRAPPERS = [
-  { id: "classic", label: "Classic Elegance", url: "/bouquets/wrapper_classic.svg", ext: "svg" },
-  { id: "modern", label: "Modern Edge", url: "/bouquets/wrapper_modern.svg", ext: "svg" },
-  { id: "kraft", label: "Rustic Kraft", url: "/bouquets/wrapper_kraft.svg", ext: "svg" },
   { id: "main", label: "Sweet Satin", url: "/bouquets/wrapper_main.png", ext: "png" },
   { id: "paper", label: "Vintage Paper", url: "/bouquets/wrapper_paper.png", ext: "png" },
-  { id: "2", label: "Blushing Ribbon", url: "/bouquets/wrapper_2.png", ext: "png" }
+  { id: "2", label: "Blushing Ribbon", url: "/bouquets/wrapper_2.png", ext: "png" },
+  { id: "korean_wrap", label: "Korean Wrap", url: "/bouquets/korean_wrap.png", ext: "png" }
 ];
 
 const DEFAULT_FLOWERS = [
@@ -76,7 +82,6 @@ const DEFAULT_FLOWERS = [
   { id: "sunflower", label: "Sunflower", url: "/flowers/sunflower.svg" },
   { id: "cherry", label: "Cherry", url: "/flowers/cherry_blossom.svg" },
   { id: "hibiscus", label: "Hibiscus", url: "/flowers/hibiscus.svg" },
-  { id: "blossom", label: "Blossom", url: "/flowers/blossom.svg" },
   { id: "lotus", label: "Lotus", url: "/flowers/lotus.png" }
 ];
 
