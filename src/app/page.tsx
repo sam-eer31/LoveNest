@@ -1,11 +1,35 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export default function LandingPage() {
+  useEffect(() => {
+    try {
+      const oldKey = 'date-invite-creator-storage';
+      const newKey = 'lovenest-creator-storage';
+      const oldInvites = 'date-invites-created';
+      const newInvites = 'lovenest-invites-created';
+      
+      if (typeof window !== 'undefined') {
+        const oldVal = localStorage.getItem(oldKey);
+        const newVal = localStorage.getItem(newKey);
+        if (oldVal && !newVal) {
+          localStorage.setItem(newKey, oldVal);
+          window.location.reload();
+        }
+        
+        const oldInvVal = localStorage.getItem(oldInvites);
+        const newInvVal = localStorage.getItem(newInvites);
+        if (oldInvVal && !newInvVal) {
+          localStorage.setItem(newInvites, oldInvVal);
+        }
+      }
+    } catch (e) {}
+  }, []);
   return (
     <main className="relative min-h-screen overflow-y-auto bg-background text-foreground selection:bg-primary/30">
       {/* Decorative Background */}

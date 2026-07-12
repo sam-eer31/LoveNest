@@ -93,11 +93,14 @@ const isPointInPolygon = (point: { x: number, y: number }, polygon: { x: number,
 };
 
 const parsePolygon = (maskUrl: string | undefined): { x: number, y: number }[] => {
-  if (!maskUrl || !maskUrl.startsWith('polygon(')) return [];
-  const pointStrings = maskUrl.replace('polygon(', '').replace(')', '').split(', ');
+  if (!maskUrl) return [];
+  const clean = maskUrl.replace(/polygon\s*\(/i, '').replace(/\)\s*$/, '').trim();
+  if (!clean) return [];
+  
+  const pointStrings = clean.split(',');
   return pointStrings.map(p => {
-    const [x, y] = p.split(' ').map(val => parseFloat(val));
-    return { x, y };
+    const parts = p.trim().split(/\s+/).map(val => parseFloat(val));
+    return { x: parts[0], y: parts[1] };
   }).filter(p => !isNaN(p.x) && !isNaN(p.y));
 };
 

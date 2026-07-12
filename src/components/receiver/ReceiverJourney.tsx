@@ -167,6 +167,7 @@ const WRAPPER_EXT: Record<string, string> = {
   main: "png",
   paper: "png",
   "2": "png",
+  korean_wrap: "png",
 };
 
 const FLOWER_TYPES: { id: string; src: string; label: string }[] = [
@@ -175,7 +176,6 @@ const FLOWER_TYPES: { id: string; src: string; label: string }[] = [
   { id: "sunflower", src: "/flowers/sunflower.svg", label: "Sunflower" },
   { id: "cherry", src: "/flowers/cherry_blossom.svg", label: "Cherry" },
   { id: "hibiscus", src: "/flowers/hibiscus.svg", label: "Hibiscus" },
-  { id: "blossom", src: "/flowers/blossom.svg", label: "Blossom" },
   { id: "lotus", src: "/flowers/lotus.png", label: "Lotus" },
 ];
 
@@ -215,6 +215,12 @@ const WRAPPER_CONFIGS: Record<string, { bottomOffset: number, wrapperScale: numb
     wrapperScale: 1.15,
     translateY: 0,
     frontClipPath: "polygon(0% 100%, 100% 100%, 100% 25%, 95% 28%, 90% 32%, 85% 36%, 80% 40%, 75% 44%, 70% 47%, 65% 50%, 60% 52%, 55% 53%, 50% 54%, 45% 53%, 40% 52%, 35% 50%, 30% 47%, 25% 44%, 20% 40%, 15% 36%, 10% 32%, 5% 28%, 0% 25%)"
+  },
+  korean_wrap: {
+    bottomOffset: 160,
+    wrapperScale: 1.15,
+    translateY: 0,
+    frontClipPath: "polygon(0% 100%, 100% 100%, 100% 25%, 95% 28%, 90% 32%, 85% 36%, 80% 40%, 75% 44%, 70% 47%, 65% 50%, 60% 52%, 55% 53%, 50% 54%, 45% 53%, 40% 52%, 35% 50%, 30% 47%, 25% 44%, 20% 40%, 15% 36%, 10% 32%, 5% 28%, 0% 25%)"
   }
 };
 
@@ -225,6 +231,7 @@ const DEFAULT_POLYGONS: Record<string, string> = {
   main: "polygon(15% 25%, 85% 25%, 50% 85%)",
   paper: "polygon(15% 25%, 85% 25%, 50% 85%)",
   "2": "polygon(15% 25%, 85% 25%, 50% 85%)",
+  korean_wrap: "polygon(15% 25%, 85% 25%, 50% 85%)",
 };
 
 const isPointInPolygon = (point: { x: number, y: number }, polygon: { x: number, y: number }[]) => {
@@ -242,11 +249,14 @@ const isPointInPolygon = (point: { x: number, y: number }, polygon: { x: number,
 };
 
 const parsePolygon = (maskUrl: string | undefined): { x: number, y: number }[] => {
-  if (!maskUrl || !maskUrl.startsWith('polygon(')) return [];
-  const pointStrings = maskUrl.replace('polygon(', '').replace(')', '').split(', ');
+  if (!maskUrl) return [];
+  const clean = maskUrl.replace(/polygon\s*\(/i, '').replace(/\)\s*$/, '').trim();
+  if (!clean) return [];
+  
+  const pointStrings = clean.split(',');
   return pointStrings.map(p => {
-    const [x, y] = p.split(' ').map(val => parseFloat(val));
-    return { x, y };
+    const parts = p.trim().split(/\s+/).map(val => parseFloat(val));
+    return { x: parts[0], y: parts[1] };
   }).filter(p => !isNaN(p.x) && !isNaN(p.y));
 };
 
