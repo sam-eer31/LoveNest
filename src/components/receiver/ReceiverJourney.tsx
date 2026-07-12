@@ -231,7 +231,7 @@ const DEFAULT_POLYGONS: Record<string, string> = {
   main: "polygon(15% 25%, 85% 25%, 50% 85%)",
   paper: "polygon(15% 25%, 85% 25%, 50% 85%)",
   "2": "polygon(15% 25%, 85% 25%, 50% 85%)",
-  korean_wrap: "polygon(15% 25%, 85% 25%, 50% 85%)",
+  korean_wrap: "polygon(22% 35%, 78% 35%, 72% 70%, 28% 70%)",
 };
 
 const isPointInPolygon = (point: { x: number, y: number }, polygon: { x: number, y: number }[]) => {

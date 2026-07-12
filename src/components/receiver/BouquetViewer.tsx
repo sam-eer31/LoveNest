@@ -66,7 +66,7 @@ const DEFAULT_POLYGONS: Record<string, string> = {
   main: "polygon(15% 25%, 85% 25%, 50% 85%)",
   paper: "polygon(15% 25%, 85% 25%, 50% 85%)",
   "2": "polygon(15% 25%, 85% 25%, 50% 85%)",
-  korean_wrap: "polygon(15% 25%, 85% 25%, 50% 85%)",
+  korean_wrap: "polygon(22% 35%, 78% 35%, 72% 70%, 28% 70%)",
 };
 
 const DEFAULT_WRAPPERS = [
@@ -239,8 +239,14 @@ export function BouquetViewer({
             {/* 2. THE FLOWERS (z-30) */}
             <div 
               className="absolute inset-0 z-30 pointer-events-auto"
-              style={
-                currentConfig?.visibleMaskUrl && (currentConfig.visibleMaskUrl.startsWith('data:image') || currentConfig.visibleMaskUrl.startsWith('http') || currentConfig.visibleMaskUrl.startsWith('/'))
+              style={{
+                // 1. Polygon Clip-Path (ensures flowers never escape the spawn polygon)
+                clipPath: (currentConfig?.flowerMaskUrl && currentConfig.flowerMaskUrl.startsWith('polygon'))
+                  ? currentConfig.flowerMaskUrl
+                  : (DEFAULT_POLYGONS[displayWrapper] ? DEFAULT_POLYGONS[displayWrapper] : undefined),
+                  
+                // 2. Image Mask (for smooth shading and edges, if available)
+                ...(currentConfig?.visibleMaskUrl && (currentConfig.visibleMaskUrl.startsWith('data:image') || currentConfig.visibleMaskUrl.startsWith('http') || currentConfig.visibleMaskUrl.startsWith('/'))
                   ? {
                       WebkitMaskImage: `url(${currentConfig.visibleMaskUrl})`,
                       WebkitMaskSize: '100% 100%',
@@ -251,10 +257,8 @@ export function BouquetViewer({
                       maskRepeat: 'no-repeat',
                       maskPosition: 'bottom center'
                     }
-                  : currentConfig?.flowerMaskUrl && currentConfig.flowerMaskUrl.startsWith('polygon')
-                  ? { clipPath: currentConfig.flowerMaskUrl }
-                  : undefined
-              }
+                  : {})
+              }}
             >
               {/* Full height absolute container for 1:1 coordinate matching */}
               <div className="absolute inset-0">
